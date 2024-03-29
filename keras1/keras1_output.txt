@@ -1,7 +1,12 @@
 TensorFlow version: 2.15.0
+# MNIST data is being downloaded
 Downloading data from https://storage.googleapis.com/tensorflow/tf-keras-datasets/mnist.npz
+# DOWNLOAD STATS: x/x is bytes downloaded, 0us/step means microseconds per step
 11490434/11490434 [==============================] - 0s 0us/step
+
+# TRAINING
 Epoch 1/5
+# 1875 is the number of training steps, time taken per step, etc.
 1875/1875 [==============================] - 14s 7ms/step - loss: 0.2866 - accuracy: 0.9168
 Epoch 2/5
 1875/1875 [==============================] - 6s 3ms/step - loss: 0.1394 - accuracy: 0.9581
@@ -11,9 +16,16 @@ Epoch 4/5
 1875/1875 [==============================] - 7s 4ms/step - loss: 0.0860 - accuracy: 0.9735
 Epoch 5/5
 1875/1875 [==============================] - 8s 4ms/step - loss: 0.0719 - accuracy: 0.9770
+
+# 313 samples evaluated / 313 samples in dataset; the loss value is a measure of how well the
+# model's predictions match the true labels in the test dataset; the accuract represents the
+# proportion of correctly classified samples in the test dataset;
 313/313 - 1s - loss: 0.0746 - accuracy: 0.9765 - 970ms/epoch - 3ms/step
 
+# EVALUATION
+
 <tf.Tensor: shape=(5, 10), dtype=float32, numpy=
+# i.e. results in LIST format
 array([[1.52932067e-08, 1.68605911e-08, 3.09253164e-06, 5.76705934e-05,
         5.99960880e-12, 3.50280544e-07, 4.45048425e-12, 9.99935150e-01,
         4.17847623e-08, 3.62329502e-06],
