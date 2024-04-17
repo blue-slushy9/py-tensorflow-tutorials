@@ -28,7 +28,7 @@ class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat', \
 train_images.shape
 
 # This command shows there are 60,000 labels in the training set
-len(training_labels)
+len(train_labels)
 
 # As stated above, each label is an integer between 0 and 9
 train_labels
