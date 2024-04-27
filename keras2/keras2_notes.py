@@ -3,7 +3,13 @@
 import tensorflow as tf
 
 # Helper libraries
+
+# NumPy is used for scientific calculations
 import numpy as np
+# MatPlotLib is a library for creating static, animated, and interactive
+# visualizations; PyPlot is an interface layer built on top of MPL, it
+# provides a collection of functions that allows you to work with MPL in
+# a more MATLAB-like style, i.e. simpler and more concise ways to create plots
 import matplotlib.pyplot as plt
 
 print(tf.__version__)
@@ -24,7 +30,10 @@ class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat', \
                'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot']
 
 # Explore the format of the dataset before training the model, this command
-# shows there are 60,000 images 			 
+# shows there are 60,000 images;
+# In Keras, the .shape attribute is used to access the dimensional size (shape)
+# of a tensor or layer output, it returns a tuple of integers representing the
+# number of elements along each dimension of the tensor;		 
 train_images.shape
 
 # This command shows there are 60,000 labels in the training set
@@ -39,16 +48,35 @@ test_images.shape
 # The test set contains 10,000 image labels
 len(test_labels)
 
-# Preprocess the data, this must be done before training the network
+# Preprocess the data, this must be done before training the network;
+# figure() creates a new figure object, which is the basic container for plots
+# in Matplotlib; it creates a new figure window for plotting, a canvas where you
+# can generate your plots and graphs; it also allows you to activate an existing
+# figure if you provide a specific identifier;
 plt.figure()
+# imshow() displays an image as a two-dimensional data plot, it takes your image
+# data and translates it into colors on a grid; it accepts an image represented
+# as a 2D or 3D NumPy array; it does not directly return an image, rather it creates
+# an AxesImage object, which represents the plotted image on the current figure---
+# you can typically use plt.show() afterward to display the image on the screen;
 plt.imshow(train_images[0])
+# Adds a colorbar to the plot, which acts a legend that visually represents the color
+# mapping used in the plot; many plots in MPL, like heatmaps and contour plots, rely on
+# colormaps to translate data values into colors; the colorbar then provides a visual
+# reference to for understanding this mapping as it has labels underneath the colors;
 plt.colorbar()
+# grid() controls the visibility and appearance of grid lines on your plots, which are
+# used to provide reference points along the axes; in this case, grid line are not enabled
+# on our plot, as the argument is False; 
 plt.grid(False)
+# Finally, show() is used to display the plot we have created
 plt.show()
 
 # Scale values to a range of 0 to 1 before feeding them to the NN model---
 # to do this, divide the values by 255; it's important that the training set
-# and the testing set be preprocessed in the same way
+# and the testing set be preprocessed in the same way;
+# We scale the values for improved gradient descent optimization, activation function behavior,
+# standardization and normalization;
 train_images = train_images / 255.0
 test_images = test_images / 255.0
 
