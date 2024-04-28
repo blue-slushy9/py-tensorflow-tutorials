@@ -20,6 +20,7 @@ fashion_mnist = tf.keras.datasets.fashion_mnist
 # The images are 28x28 NumPy arrays, with pixel values ranging from 0 to 255;
 # the labels are an array of integers, from 0 to 9, with each number
 # corresponding to the class of clothing the image represents;
+# load_data() is able to separate the dataset into training and testing sets
 (train_images, train_labels), (test_images, test_labels) = fashion_mnist.load_data()
 
 # Each image is mapped to a single label, since the class names are not
@@ -66,8 +67,8 @@ plt.imshow(train_images[0])
 # reference to for understanding this mapping as it has labels underneath the colors;
 plt.colorbar()
 # grid() controls the visibility and appearance of grid lines on your plots, which are
-# used to provide reference points along the axes; in this case, grid line are not enabled
-# on our plot, as the argument is False; 
+# used to provide reference points along the axes; in this case, grid lines are not enabled
+# on our plot, as the argument is False
 plt.grid(False)
 # Finally, show() is used to display the plot we have created
 plt.show()
@@ -82,14 +83,33 @@ test_images = test_images / 255.0
 
 # To verify that the data is in the correct format and that you're ready to
 # build and train the NN, display the first 25 images from the training set
-# and display the class name below each image
+# and display the class name below each image;
+# figsize() controls the dimensions (width and height) of the figure window
+# in inches, which allows you to customize the canvas where your plots are
+# created---in this case, 10 inches wide and 10 inches high;
 plt.figure(figsize=(10,10))
 for i in range(25):
+	# In this usage, subplot() is used to create smaller plots within a single
+    # figure window, arranged in a grid-like layout; the syntax is as follows:
+	# (nrows, ncols, index), where nrows is the number of rows in subplot grid,
+    # ncols is the number of columns, and index is the index of the subplot within
+	# the grid, starting from 1 by default; 
     plt.subplot(5,5,i+1)
+	# xticks() controls the x-axis ticks and tick labels on your plots, which are
+    # small marks along the axis that provide reference points for the data values;
+	# providing an empty list as argument means to remove all tick marks and labels
+    # from the x-axis;
 	plt.xticks([])
+	# Same as xticks(), except for the y-axis
 	plt.yticks([])
 	plt.grid(False)
+	# The second argument is optional and can be used to represent the intensity values
+    # in the grayscale image; by default, MPL uses the viridis colormap;
+	# 'cmap' means colormap, the value 'plt.cm' is the MPL colormap library, and 'binary'
+    # is a built-in black-and-white colormap in that library 
 	plt.imshow(train_images[i], cmap=plt.cm.binary)
+	# xlabel() sets a label for the x-axis, it takes a single argument that represents the
+    # text you want to appear on the x-axis; in this case, the training labels
 	plt.xlabel(class_names[train_labels[i]])
 plt.show()
 
@@ -139,12 +159,18 @@ model.compile(optimizer='adam',
 # FEED THE MODEL
 
 # To start training, call the model.fit method (it is called this because it
-# "fits" the model to the training data
+# "fits" the model to the training data); train_images are the inputs, train_labels
+# are what the model is trying to learn to predict, and epochs is the number of times
+# times the entire training dataset is passed through by the model
 model.fit(train_images, train_labels, epochs=10)
 
 # EVALUATE ACCURACY
 
-# Compare how the model performs on the test dataset
+# Compare how the model performs on the test dataset;
+# test_loss stores the loss value on the test dataset, test_acc stores the
+# accuracy value; model.evaluate() is similar to model.fit() above, except
+# that we are now in the testing phase; verbose=2 is the highest value for 
+# output verbosity
 test_loss, test_acc = model.evaluate(test_images, test_labels, verbose=2)
 print('\nTest accuracy:', test_acc)
 
@@ -173,7 +199,9 @@ predictions = probability_model.predict(test_images)
 # articles of clothing (i.e. classes)
 predictions[0]
 
-# View which label has the highest confidence value
+# View which label has the highest confidence value;
+# argmax() is used to find the index, or indices, of the maximum value(s) along
+# a specified axis in a NumPy array; it takes an array as its required argument
 np.argmax(predictions[0])
 
 # You can cross-reference the test_labels to verify the prediction
