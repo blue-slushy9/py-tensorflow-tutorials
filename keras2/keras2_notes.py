@@ -34,7 +34,7 @@ class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat', \
 # shows there are 60,000 images;
 # In Keras, the .shape attribute is used to access the dimensional size (shape)
 # of a tensor or layer output, it returns a tuple of integers representing the
-# number of elements along each dimension of the tensor;		 
+# number of elements along each dimension of the tensor	 
 train_images.shape
 
 # This command shows there are 60,000 labels in the training set
@@ -98,7 +98,7 @@ for i in range(25):
 	# xticks() controls the x-axis ticks and tick labels on your plots, which are
     # small marks along the axis that provide reference points for the data values;
 	# providing an empty list as argument means to remove all tick marks and labels
-    # from the x-axis;
+    # from the x-axis
 	plt.xticks([])
 	# Same as xticks(), except for the y-axis
 	plt.yticks([])
@@ -213,16 +213,29 @@ def plot_image(i, predictions_array, true_label, img):
 	plt.grid(False)
 	plt.xticks([])
 	plt.yticks([])
-	
+	# imshow() accepts an image represented as a 2D or 3D NumPy array
 	plt.imshow(img, cmap=plt.cm.binary)
-	
+	# argmax() will identify index/indices of maximum value(s) in 
+    # predictions_array
 	predicted_label = np.argmax(predictions_array)
+	# If the prediction is accurate...
 	if predicted_label == true_label:
 	    color = 'blue'
     else:
 	    color = 'red'
-		
+	# Constructs a formatted string that will be used as the x-label for our
+    # plot, said label will combine information about the predicted class and
+	# its corresponding confidence level; {} is a placeholder for values that 
+    # will be inserted into the string at specific positions; ':2.0 specifies 
+	# a minimum field width of 2 and precision of 0 decimal places, i.e. an integer;
+    # 'f' indicates the value should be formatted as a floating-point number; 
+	# '%' will be included literally within the label string to make it a percentage;
+    # '({})' is another placeholder for the predicted class name; '.format()' calls
+	# the format method on the f-string literal, the arguments within the parentheses
+    # will be inserted into the corresponding placeholders mentioned previously;
 	plt.xlabel("{} {:2.0f}% ({})".format(class_names[predicted_label],
+	# max() will return the element with the highest value; we multiply the value by
+    # 100 in order to make it a percentage
 	100*np.max(predictions_array),
 	class_names[true_label]),
 	color=color)
@@ -230,9 +243,19 @@ def plot_image(i, predictions_array, true_label, img):
 def plot_value_array(i, predictions_array, true_label):
     true_label = true_label[i]
 	plt.grid(False)
+	# range(10) will generate 0-9 as it is non-inclusive, which will in turn be used
+    # by xticks() to label the x-axis
 	plt.xticks(range(10))
 	plt.yticks([])
+	# bar() creates bar chart or bar plots, it visualizes categorical data using
+    # rectangular bars with heights proportional to the values you provide; the
+	# arguments are x, which is the list or array representing the positions of the
+    # bars on the x-axis; height, which is a list or array containing the heights of
+	# the bars, the length of this list should match x; color is optional but is used
+    # to define the color(s) of the bars 
 	thisplot = plt.bar(range(10), predictions_array, color="#777777")
+	# ylim() acts as a setter and updates the y-axis limits of the current plot, in this
+    # case with 0 as the bottom and 1 as the top
 	plt.ylim([0, 1])
 	predicted_label = np.argmax(predictions_array)
 	
@@ -262,16 +285,21 @@ plot_value_array(i, predictions[i], test_labels)
 plt.show()
 
 # Plot the first X test images, their predicted labels, and the true labels;
-# Color correct predictions in blue and incorrect predictions in red;
+# Color correct predictions in blue and incorrect predictions in red
 num_rows = 5
 num_cols = 3
 num_images = num_rows*num_cols
+# Not sure why we have to multiply all of these values, but I'll probably find
+# out when I look at the output again
 plt.figure(figsize=(2*2*num_cols, 2*num_rows))
 for i in range(num_images):
     plt.subplot(num_rows, 2*num_cols, 2*i+1)
 	plot_image(i, predictions[i], test_labels, test_images)
 	plt.subplot(num_rows, 2*num_cols, 2*i+2)
 	plot_value_array(i, predictions[i], test_labels)
+# tight_layout() automatically adjusts the spacing around subplots in a figure
+# to minimize wasted space; it is particularly useful when you have multiple
+# subplots on a figure
 plt.tight_layout()
 plt.show()
 
@@ -286,9 +314,13 @@ print(img.shape)
 
 # tf.keras models are optimized to make predictions on a batch, or collection,
 # of examples at once; accordingly, even though you are using only a single
-# image, you need to add it to a list;
+# image, you need to add it to a list
 
-# Add the image to a batch where it's the only member
+# Add the image to a batch where it's the only member;
+# expand_dims() inserts a new dimension (axis) into an existing array, which is
+# useful when you want to perform operations on arrays that require a specific
+# number of dimensions; 'img' is the array that will be modified, 0 is the integer
+# that specifies the position where the new dimension will be inserted
 img = (np.expand_dims(img,0))
 
 print(img.shape)
@@ -299,6 +331,11 @@ predictions_single = probability_model.predict(img)
 print(predictions_single)
 
 plot_value_array(1, predictions_single[0], test_labels)
+# '_' is a placeholder variable, which tells Python to execute the function
+# but to discard the return value, it is commonly used when the function
+# doesn't return a value you need to store or use explicitly; 'rotation=45'
+# rotates the labels 45 degrees to prevent overlapping, which could easily
+# occur as some of the class names are long
 _ = plt.xticks(range(10), class_names, rotation=45)
 plt.show()
 
