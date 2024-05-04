@@ -3,3 +3,6 @@ TERMS & CONCEPTS
 -logarithms, logits, log-odds
 -scalar
 -gradient descent
+-convolutional neural network
+-
+
