@@ -1,0 +1,1 @@
+This repo is for my projects I am going to create by completing the tutorials on TensorFlow.org!

@@ -1,0 +1,106 @@
+TensorFlow version: 2.15.0
+# MNIST data is being downloaded
+Downloading data from https://storage.googleapis.com/tensorflow/tf-keras-datasets/mnist.npz
+# DOWNLOAD STATS: x/x is bytes downloaded, '0us/step' means microseconds per step;
+# A step is a single iteration of training or evaluation on a batch of data;
+# The term 'step' if often used interchangeably with 'iteration' or 'epoch';
+# Each step processes a batch of input data, computes the corresponding
+# gradients and updates the model's parameters (weights & biases) accordingly;
+11490434/11490434 [==============================] - 0s 0us/step
+
+# TRAINING
+# 1875 is the number of training steps, on the right is time taken per step;
+# LOSS is a measure of how well the model's predictions match the true labels
+# or targets in the training data, it quantifies the difference between the
+# predicted output and the actual target values; during training, the goal of
+# the optimization algorithm is to minimize the loss function; the optimization
+# algorithm iteratively adjusts weights and biases in order to try to reduce
+# loss and improve the model's predictive performance; ACCURACY measures the
+# proportion of correct predictions made by the model relative to the total
+# number of predictions; 
+Epoch 1/5
+1875/1875 [==============================] - 14s 7ms/step - loss: 0.2866 - accuracy: 0.9168
+Epoch 2/5
+1875/1875 [==============================] - 6s 3ms/step - loss: 0.1394 - accuracy: 0.9581
+Epoch 3/5
+1875/1875 [==============================] - 8s 4ms/step - loss: 0.1053 - accuracy: 0.9684
+Epoch 4/5
+1875/1875 [==============================] - 7s 4ms/step - loss: 0.0860 - accuracy: 0.9735
+Epoch 5/5
+1875/1875 [==============================] - 8s 4ms/step - loss: 0.0719 - accuracy: 0.9770
+
+# 313 samples evaluated / 313 samples in dataset; the loss value is a measure of how well the
+# model's predictions match the true labels in the test dataset; the accuracy represents the
+# proportion of correctly classified samples in the test dataset;
+313/313 - 1s - loss: 0.0746 - accuracy: 0.9765 - 970ms/epoch - 3ms/step
+
+# EVALUATION
+# 'tf.Tensor' indicates a tensor object; 'shape...10)' indicates the shape of
+# the tensor, in this case (5, 10), i.e. a 2-dimensional tensor with 5 rows
+# and 10 columns; 'dtype...32' specifies data type of the elements in the
+# tensor, in this case float32, i.e. single-precision floating-point numbers;
+# 'numpy=' just means the tensor object is being represented as a NumPy array;
+<tf.Tensor: shape=(5, 10), dtype=float32, numpy=
+# i.e. results in LIST format, these are probabilities assigned to each class
+# for a set of input samples; each row corresponds to a different input sample,
+# and each column represents the probability of that sample belonging to a
+# specific class; EXAMPLE: in the first row, the highest probability occurs in
+# the 8th column, which corresponds to the 8th class; therefore, for the first
+# input sample, the model predicts it belongs to class 8 with a probability of
+# approximately 0.9999;
+array([[1.52932067e-08, 1.68605911e-08, 3.09253164e-06, 5.76705934e-05,
+        5.99960880e-12, 3.50280544e-07, 4.45048425e-12, 9.99935150e-01,
+        4.17847623e-08, 3.62329502e-06],
+       [1.48526715e-06, 5.69817676e-05, 9.99832392e-01, 1.07446125e-04,
+        6.03638919e-15, 9.70220071e-07, 1.26708215e-07, 7.73724557e-11,
+        6.12846293e-07, 2.59650835e-13],
+       [3.68155668e-07, 9.98306036e-01, 8.80637381e-05, 2.73356927e-05,
+        2.71322788e-05, 9.08555739e-06, 5.40692672e-05, 9.51655849e-04,
+        5.35706815e-04, 6.45885677e-07],
+       [9.99885917e-01, 3.37425532e-09, 2.39505043e-05, 3.17624083e-09,
+        3.87207649e-07, 3.98338393e-08, 8.86568159e-05, 1.03491971e-06,
+        8.53389470e-10, 2.46243275e-08],
+       [1.80126705e-07, 7.50783713e-10, 7.02777982e-07, 1.12669722e-08,
+        9.98482406e-01, 5.38047509e-08, 2.01874082e-06, 1.75158802e-05,
+        1.31381938e-07, 1.49694167e-03]], dtype=float32)>
+
+# Additional notes
+
+# Class: refers to the categories or labels that the neural network model is
+# trained to predict; EXAMPLE: if you are building a neural network to classify
+# images of handwritten digits (e.g. 0 through 9), then you would have 10
+# classes corresponding to each digit; each class represents a distinct
+# category or label that the model aims to predict;
+
+# Weight: the learnable parameters of a neural network layer, these weights
+# are the variables that the neural network learns during the training process
+# to map input to the desired output; in a neural network, each layer typically
+# consists of one or more neurons (also called units or nodes), and each neuron
+# is connected to every neuron in the previous layer (in a fully connected
+# layer), or a subset of neurons (in a convolutional or recurrent layer);
+# these connections are represented by weights, which determine the strength
+# of the connection between neurons; during training, the NN learns the optimal
+# values for these weights by adjusting them based on the difference between
+# the predicted output and the actual target values (the loss); this adjustment
+# is performed using optimization algorithms like stochastic gradient descent,
+# Adam, etc.; in TF, weights are typically represented as TF variables,
+# e.g. 'tf.Variable' and are automatically updated during the training as part
+# of the computation graph; you can define and initialize weights using TF's
+# high-level APIs such as Keras, or you can explicitly create and manage them
+# using TF's low-level APIs;
+
+# Bias: an additional parameter added to each neuron in a NN layer; like
+# weights, biases are learnable parameters that the NN adjusts during training
+# to improve the model's performance; biases provide the NN with the ability
+# to learn an offset that helps improve the flexibility and representational
+# power of the model; they allow the model to better fit complex patterns in
+# the data by shifting the activation function of each neuron; during training,
+# similarly to weights, biases are learned by the NN through the optimization
+# process; they are updated along with weights using optimization algorithms
+# like SGD, Adam, etc., in order to minimize the difference between the
+# predicted output and the actual target values (i.e. the loss); in TF, biases
+# are also typically represented as TF variable, e.g. 'tf.Variable' and are
+# automatically updated during training as part of the computational graph;
+# you can define and initialize weights using TF's high-level APIs such as 
+# Keras, or you can explicitly create and manage them using TF's low-level 
+# APIs;
